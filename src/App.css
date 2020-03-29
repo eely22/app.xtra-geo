@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+path {
+  pointer-events: all;
+}
+path:hover {
+  fill: green;
+  cursor: pointer;
+}
