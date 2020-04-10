@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import USAMap from "react-usa-map";
+import USAMap from "./react-usa-map";
 
 class App extends Component {
 
@@ -11,6 +11,8 @@ class App extends Component {
             questions_to_ask: 10,
             questions_asked: 0,
             questions_correctly_answered: 0,
+            secondsToHelp: 7,
+            showStateTooltip: false,
             chosen_state: null,
             us_states: {
                 "AL": "Alabama",
@@ -96,9 +98,11 @@ class App extends Component {
 
         return (
             <div className="App">
-                <USAMap onClick={this.mapHandler} />
+                <USAMap onClick={this.mapHandler} showStateTooltip={this.state.showStateTooltip}/>
 
                 <p>Click this state: {this.state.us_states[this.state.chosen_state]}</p>
+
+                {this.state.showStateTooltip && <p style={{color: "#888"}}>Hint available</p>}
 
                 {this.state.clicked_state && this.state.clicked_state === this.state.chosen_state &&
                     <img alt="correct" height="100px" src={process.env.PUBLIC_URL + '/green_check.png'}></img>
@@ -126,7 +130,12 @@ class App extends Component {
 
         this.setState({
             clicked_state: null,
-            chosen_state: selectedState
+            chosen_state: selectedState,
+            showStateTooltip: false
+        }, () => {
+            window.setTimeout(() => {
+                this.setState({showStateTooltip: true});
+            }, this.state.secondsToHelp*1000)
         })
     };
 }

@@ -1,3 +1,9 @@
+# App Geo
+
+This app was modeled after xtra-math. It is meant to quiz kids on the US states.
+
+Hosted at [geo.nathan-ely.com](http://geo.nathan-ely.com)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
