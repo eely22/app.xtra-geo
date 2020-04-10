@@ -1,0 +1,47 @@
+# Python CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-python/ for more details
+#
+defaults: &defaults
+  working_directory: ~/repo
+
+  environment:
+    # Configure the AWS user credentials for the build, this was added to ensure integration tests and ECS automation
+    # can access the resources they need. These credentials are the AWS IAM user pyEdge-entity
+    AWS_ACCESS_KEY_ID: "AKIAIJZ67CHQH7DS37JQ"
+    AWS_SECRET_ACCESS_KEY: "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"
+    AWS_DEFAULT_REGION: "us-west-2"
+    AWS_REGION: "us-west-2"
+
+  docker:
+    - image: circleci/node:10.13
+
+version: 2
+jobs:
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+
+      - run:
+          name: install dependencies
+          command: |
+            sudo apt-get -y -qq install awscli
+            npm install
+      - run:
+          name: build app
+          command: |
+            CI=true npm run build
+      - run:
+          name: deploy app
+          command: |
+            aws s3 sync ./build s3://geo.nathan-ely.com --delete --region us-west-2
+
+workflows:
+  version: 2
+  build-workflow:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: master
