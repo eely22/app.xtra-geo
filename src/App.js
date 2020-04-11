@@ -67,7 +67,8 @@ class App extends Component {
                 "WI": "Wisconsin",
                 "WY": "Wyoming"
             },
-            clicked_state: null
+            clicked_state: null,
+            timer: null
         }
     }
 
@@ -125,17 +126,23 @@ class App extends Component {
     }
 
     setNextQuestion = () => {
+        if (this.state.timer) {
+            window.clearTimeout(this.state.timer);
+        }
+
         const randomNumber = parseInt(Math.random() * Object.keys(this.state.us_states).length);
         const selectedState = Object.keys(this.state.us_states)[randomNumber];
 
         this.setState({
             clicked_state: null,
             chosen_state: selectedState,
-            showStateTooltip: false
+            showStateTooltip: false,
+            timer: null
         }, () => {
-            window.setTimeout(() => {
-                this.setState({showStateTooltip: true});
-            }, this.state.secondsToHelp*1000)
+            let timer = window.setTimeout(() => {
+                this.setState({showStateTooltip: true, timer: null});
+            }, this.state.secondsToHelp*1000);
+            this.setState({timer: timer})
         })
     };
 }
