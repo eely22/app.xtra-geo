@@ -1,6 +1,6 @@
 # App Geo
 
-This app was modeled after xtra-math. It is meant to quiz kids on the US states.
+This app was modeled after xtra-math. It is meant to quiz kids on the US states, and teach kids to code.
 
 Hosted at [geo.nathan-ely.com](http://geo.nathan-ely.com)
 
