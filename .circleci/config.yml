@@ -8,8 +8,6 @@ defaults: &defaults
   environment:
     # Configure the AWS user credentials for the build, this was added to ensure integration tests and ECS automation
     # can access the resources they need. These credentials are the AWS IAM user pyEdge-entity
-    AWS_ACCESS_KEY_ID: "AKIAIJZ67CHQH7DS37JQ"
-    AWS_SECRET_ACCESS_KEY: "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"
     AWS_DEFAULT_REGION: "us-west-2"
     AWS_REGION: "us-west-2"
 
